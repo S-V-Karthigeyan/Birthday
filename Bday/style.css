@@ -1,0 +1,468 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #0f0f14;
+    color: #eee;
+    overflow-x: hidden;
+}
+
+#startScreen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #0f0f14, #1b1b25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 1s ease;
+}
+
+#startScreen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.start-box {
+    text-align: center;
+    color: white;
+}
+
+.start-box h1 {
+    font-size: 2.5rem;
+}
+
+.start-box p {
+    margin: 10px 0;
+    color: #ccc;
+}
+
+.start-box span {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    background: #ff4d6d;
+}
+
+#stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.3; }
+    to { opacity: 1; }
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav h2 {
+    color: #ff4d6d;
+    text-shadow: 0 0 8px rgba(255,77,109,0.6),
+                 0 0 16px rgba(255,77,109,0.4);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: #eee;
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+nav a:hover{
+    color: #ff4d6d;
+    text-shadow: 0 0 6px rgba(255,77,109,0.8),
+                 0 0 14px rgba(255,77,109,0.6);
+}
+
+.hero {
+    min-height: 100vh;
+    background:
+        linear-gradient(rgba(15,15,20,0.55), rgba(15,15,20,0.55)),
+        url("img/collage.jpg") center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+}
+
+.hero p {
+    margin-top: 10px;
+    color: #ccc;
+}
+
+.hero button {
+    margin-top: 25px;
+    padding: 12px 25px;
+    border-radius: 25px;
+    border: none;
+    background: #ff4d6d;
+    color: white;
+    cursor: pointer;
+}
+
+section {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #1b1b25;
+    border-radius: 20px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 20px;
+}
+
+.gallery img {
+    width: 100%;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.songs li {
+    list-style: none;
+    background: #2a2a35;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 15px;
+    max-width: 350px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.songs li:hover {
+    background: #ff4d6d;
+    transform: scale(1.03);
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #aaa;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: 0.8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cake {
+    text-align: center;
+}
+
+.cake-body {
+    width: 200px;
+    height: 120px;
+    background: #ff8fab;
+    margin: 0 auto;
+    border-radius: 0 0 20px 20px;
+}
+
+.candle {
+    width: 10px;
+    height: 40px;
+    background: white;
+    margin: 0 auto;
+}
+
+.flame {
+    width: 15px;
+    height: 15px;
+    background: orange;
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: flicker 0.8s infinite;
+}
+
+#musicToggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ff4d6d;
+    border: none;
+    color: white;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.cake-body,
+.songs li.active {
+    box-shadow: 0 0 20px rgba(255,77,109,0.6);
+}
+
+.songs li.active {
+    background: #ff4d6d;
+}
+
+#letterModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+}
+
+#letterModal.show {
+    display: flex;
+}
+
+.letter-box {
+    position: relative;
+    background: #f5ecd9;
+    color: #3b2f2f;
+    font-family: "Brush Script MT", "Lucida Handwriting", "Comic Sans MS", cursive;
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 500px;
+    text-align: left;
+    line-height: 1.8;
+    transform: rotate(-1.5deg);
+    box-shadow:
+        inset 0 0 30px rgba(0,0,0,0.2),
+        0 20px 40px rgba(0,0,0,0.5);
+    background-image: linear-gradient(
+        rgba(255,255,255,0.4),
+        rgba(255,255,255,0.1)
+    );
+}
+
+.letter-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        transparent,
+        transparent 28px,
+        rgba(0,0,0,0.03) 29px
+    );
+    pointer-events: none;
+}
+
+@keyframes inkFade {
+    from {
+        opacity: 0;
+        filter: blur(2px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+.letter-box p {
+    font-size: 1.2rem;
+    animation: inkFade 2s ease forwards;
+}
+
+.letter-box::after {
+    content: "❤";
+    position: absolute;
+    bottom: -25px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle at top left, #ff6b6b, #b11226);
+    color: white;
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow:
+        inset -4px -4px 8px rgba(0,0,0,0.3),
+        inset 4px 4px 8px rgba(255,255,255,0.2),
+        0 10px 20px rgba(0,0,0,0.4);
+    transform: rotate(-10deg);
+    pointer-events: none;
+}
+
+.letter-box h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.letter-box button {
+    background: #c0392b;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    margin-top: 30px;
+    font-family: inherit;
+}
+
+.letter-btn {
+    margin-top: 15px;
+    background: transparent;
+    border: 1px solid #ff4d6d;
+    color: #ff4d6d;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+@keyframes flicker {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+    section {
+        margin: 40px 20px;
+        padding: 25px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    nav {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 0 20px;
+    }
+
+    .hero h1 {
+        font-size: 2.1rem;
+    }
+
+    .hero p {
+        font-size: 0.95rem;
+    }
+
+    .hero button,
+    .letter-btn {
+        width: 90%;
+        max-width: 320px;
+        font-size: 1rem;
+    }
+
+    section {
+        margin: 30px 15px;
+        padding: 20px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cake-body {
+        width: 160px;
+        height: 100px;
+    }
+
+    .candle {
+        height: 35px;
+    }
+
+    .letter-box {
+        max-width: 90%;
+        padding: 30px 25px;
+        transform: rotate(-1deg);
+    }
+
+    .letter-box h2 {
+        font-size: 1.6rem;
+    }
+
+    .letter-box p {
+        font-size: 1.05rem;
+    }
+
+    #musicToggle {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px;
+    }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    nav h2 {
+        font-size: 1.4rem;
+    }
+
+    .songs li {
+        font-size: 0.95rem;
+        padding: 12px;
+    }
+
+    footer {
+        font-size: 0.85rem;
+    }
+}
